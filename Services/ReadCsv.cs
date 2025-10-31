@@ -1,54 +1,85 @@
+using System.ComponentModel.DataAnnotations;
 using AutoRapido.Model;
 using Npgsql;
 using AutoRapido.Utils;
-using AutoRapido.Models;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.DependencyInjection;
+using System.Globalization;
+
 namespace AutoRapido.Services;
 
 
 public interface IServiceCSV
 {
-    Concessions ReadCSV(string path);
+    Concession ReadAllCSV(string pathClient, string pathCar);
+    List<Client> ReadCSVClient(string path);
+    List<Car> ReadCSVCar(string path);
 }
 
 public class ServiceCSV :  IServiceCSV
 {
-    public Concessions ReadCSV(string path)
+    public Concession ReadAllCSV(string pathClient, string pathCar)
+    {
+        var clients = ReadCSVClient(pathClient);
+        var cars = ReadCSVCar(pathCar);
+
+        // on crée une instance de la classe AddClientsCars
+        AddClientsCars service = new AddClientsCars();
+
+        // on appelle la méthode de cette instance
+        Concession concession = service.AddClientsAndCars(clients, cars);
+
+        return concession;
+    }
+
+    public List<Client> ReadCSVClient(string path)
     {
 
-        // code qui lit le CSV et met tout dans la classe
+        // this code reads the csv file and update clients list.
 
-        List<Clients> persons = new List<Clients>();
+        List<Client> clients = new List<Client>();
 
-        var ligne = File.ReadAllLinesClients(path);
+        var lines = File.ReadAllLines(path);
 
-        for (int i = 1; i < lignes.Length; i++)
+        for (int i = 1; i < lines.Length; i++)
         {
-            String line = lignes[i];
-            Clients person = new Clients();
-
-            person.Lastname = line.Split(',')[1];
-            person.Firstname = line.Split(',')[2];
-            person.Birthdate = DateTimeUtils.ConvertToDateTime(line.Split(',')[3]);
-            person.Size = Int32.Parse(line.Split(',')[5]);
-
-            List<String> details = line.Split(',')[4].Split(';').ToList();
-
-            person.AdressDetails = new List<Detail>
-            {
-                new (details[0], int.Parse(details[1]), details[2])
-            };
-            persons.Add(person);
-        }
-
-        Classe maClasse = new Classe();
-        maClasse.Level = "B2";
-        maClasse.Name = "B2 C#";
-        maClasse.School = "SupDeVinci";
-        maClasse.Persons = persons.ToList();
+            String line = lines[i];
+            Client client = new Client();
             
-        return maClasse;
+            client.LastName = line.Split('%')[0];
+            client.FirstName = line.Split('%')[1];
+            client.BirthDate = DateTimeUtils.ConvertToDateTime(line.Split('%')[2]);
+            client.PhoneNumber = line.Split('%')[3]; //Change to Phone formatting later
+            client.Email = line.Split('%')[4];
+            clients.Add(client);
+        }
+        
+        return clients;
     }
+    
+    public List<Car> ReadCSVCar(string path)
+    {
+
+        // this code reads the csv file and update cars list.
+
+        List<Car> cars = new List<Car>();
+
+        var lines = File.ReadAllLines(path);
+
+        for (int i = 1; i < lines.Length; i++)
+        {
+            String line = lines[i];
+            Car car = new Car();
+            string[] lineSplit = line.Split('/');
+            car.BrandName = lineSplit[0];
+            car.ModelName = lineSplit[1];
+            car.FirstRegistrationYear = DateTimeUtils.ConvertYearToDateTime(int.Parse(lineSplit[2]));
+            car.Price = decimal.Parse(lineSplit[3], NumberStyles.AllowDecimalPoint, CultureInfo.InvariantCulture);
+            car.Color = lineSplit[4];
+            car.IsSold= bool.Parse(lineSplit[5]);
+            cars.Add(car);
+        }
+        
+        return cars;
+    }
+
+    
 }
