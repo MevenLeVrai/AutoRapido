@@ -12,8 +12,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace AutoRapido.Migrations
 {
     [DbContext(typeof(ConcessionDbContext))]
-    [Migration("20251031151144_1")]
-    partial class _1
+    [Migration("20251031180400_InitialCreate")]
+    partial class InitialCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -136,21 +136,6 @@ namespace AutoRapido.Migrations
                     b.ToTable("Cars");
                 });
 
-            modelBuilder.Entity("CarClient", b =>
-                {
-                    b.Property<Guid>("CarListCarId")
-                        .HasColumnType("uuid");
-
-                    b.Property<Guid>("OwnerListClientId")
-                        .HasColumnType("uuid");
-
-                    b.HasKey("CarListCarId", "OwnerListClientId");
-
-                    b.HasIndex("OwnerListClientId");
-
-                    b.ToTable("CarClient");
-                });
-
             modelBuilder.Entity("AutoRapido.Model.Client", b =>
                 {
                     b.HasOne("AutoRapido.Model.Concession", null)
@@ -178,21 +163,6 @@ namespace AutoRapido.Migrations
                     b.HasOne("AutoRapido.Model.Concession", null)
                         .WithMany("ListCars")
                         .HasForeignKey("ConcessionId");
-                });
-
-            modelBuilder.Entity("CarClient", b =>
-                {
-                    b.HasOne("Car", null)
-                        .WithMany()
-                        .HasForeignKey("CarListCarId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("AutoRapido.Model.Client", null)
-                        .WithMany()
-                        .HasForeignKey("OwnerListClientId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
                 });
 
             modelBuilder.Entity("AutoRapido.Model.Concession", b =>

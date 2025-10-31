@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace AutoRapido.Migrations
 {
     /// <inheritdoc />
-    public partial class _1 : Migration
+    public partial class InitialCreate : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -69,30 +69,6 @@ namespace AutoRapido.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "CarClient",
-                columns: table => new
-                {
-                    CarListCarId = table.Column<Guid>(type: "uuid", nullable: false),
-                    OwnerListClientId = table.Column<Guid>(type: "uuid", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_CarClient", x => new { x.CarListCarId, x.OwnerListClientId });
-                    table.ForeignKey(
-                        name: "FK_CarClient_Cars_CarListCarId",
-                        column: x => x.CarListCarId,
-                        principalTable: "Cars",
-                        principalColumn: "CarId",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_CarClient_Clients_OwnerListClientId",
-                        column: x => x.OwnerListClientId,
-                        principalTable: "Clients",
-                        principalColumn: "ClientId",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Purchases",
                 columns: table => new
                 {
@@ -119,11 +95,6 @@ namespace AutoRapido.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_CarClient_OwnerListClientId",
-                table: "CarClient",
-                column: "OwnerListClientId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Cars_ConcessionId",
                 table: "Cars",
                 column: "ConcessionId");
@@ -147,9 +118,6 @@ namespace AutoRapido.Migrations
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropTable(
-                name: "CarClient");
-
             migrationBuilder.DropTable(
                 name: "Purchases");
 

@@ -15,3 +15,4 @@ public class Purchase
     [Required]
     public DateTime PurchaseDate { get; set; }
 }
+
