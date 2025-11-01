@@ -32,18 +32,18 @@ namespace AutoRapido.Services
 
         public void VoirVentes()
         {
-            Console.WriteLine("\n📜 Historique des ventes :");
+            Console.WriteLine("\nHistorique des ventes :");
             Console.WriteLine("→ (Aucune vente enregistrée pour le moment)\n");
         }
 
         public void AjouterClient()
         {
-            Console.WriteLine("\n👤 Formulaire d’ajout client (simulation)...\n");
+            Console.WriteLine("\nFormulaire d’ajout client (simulation)...\n");
         }
 
         public void AjouterVoiture()
         {
-            Console.WriteLine("\n🚘 Formulaire d’ajout voiture (simulation)...\n");
+            Console.WriteLine("\nFormulaire d’ajout voiture (simulation)...\n");
         }
 
         public void AjouterVente()
