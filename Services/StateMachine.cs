@@ -57,23 +57,23 @@ namespace AutoRapido.Services
                 if (selectedOption != null)
                     ProcessChoice(selectedOption.InternalName);
                 else
-                    Console.WriteLine("❌ Choix invalide !");
+                    Console.WriteLine("Choix invalide !");
             }
             else
             {
-                Console.WriteLine("⚠️ Entrée non reconnue !");
+                Console.WriteLine("Entrée non reconnue !");
             }
         }
 
         private void ProcessChoice(string internalName)
         {
             switch (internalName)
-            {/*
+            {
                 // === Menu principal ===
                 case "VoirVoitures":
                     actionsService.VoirVoitures();
-                    break;*/
-
+                    break;
+                
                 case "VoirVentes":
                     actionsService.VoirVentes();
                     break;
@@ -104,7 +104,7 @@ namespace AutoRapido.Services
                     break;
 
                 default:
-                    Console.WriteLine("❌ Action non reconnue !");
+                    Console.WriteLine("Action non reconnue !");
                     break;
             }
         }
