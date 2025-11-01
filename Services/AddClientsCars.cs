@@ -9,19 +9,19 @@ public interface IAddClientsCars
 
 public class AddClientsCars : IAddClientsCars
 {
-    private Concession Concession1 = new Concession();
+    private readonly Concession _concession = new Concession();
 
     public Concession AddClientsAndCars(List<Client> clients, List<Car> cars)
     {
         foreach (var cl in clients)
         {
-            Concession1.ListClients.Add(cl);
+            _concession.ListClients.Add(cl);
         }
         foreach (var c in cars)
         {
-            Concession1.ListCars.Add(c);
+            _concession.ListCars.Add(c);
         }
 
-        return Concession1;
+        return _concession;
     }
 }

@@ -9,28 +9,29 @@ namespace AutoRapido.Services;
 
 public interface IServiceCSV
 {
-    Concession ReadAllCSV(string pathClient, string pathCar);
-    List<Client> ReadCSVClient(string path);
-    List<Car> ReadCSVCar(string path);
+    Concession ReadAllCsv(string pathClient, string pathCar);
+    List<Client> ReadCsvClient(string path);
+    List<Car> ReadCsvCar(string path);
 }
 
 public class ServiceCSV :  IServiceCSV
 {
-    public Concession ReadAllCSV(string pathClient, string pathCar)
+    // Allow to call each csv reading method   
+    public Concession ReadAllCsv(string pathClient, string pathCar)
     {
-        var clients = ReadCSVClient(pathClient);
-        var cars = ReadCSVCar(pathCar);
+        var clients = ReadCsvClient(pathClient);
+        var cars = ReadCsvCar(pathCar);
 
-        // on crée une instance de la classe AddClientsCars
+        // Creating instance of AddClientsCars
         AddClientsCars service = new AddClientsCars();
 
-        // on appelle la méthode de cette instance
+        // Calling instance's method
         Concession concession = service.AddClientsAndCars(clients, cars);
 
         return concession;
     }
 
-    public List<Client> ReadCSVClient(string path)
+    public List<Client> ReadCsvClient(string path)
     {
 
         // this code reads the csv file and update clients list.
@@ -47,15 +48,16 @@ public class ServiceCSV :  IServiceCSV
             client.LastName = line.Split('%')[0];
             client.FirstName = line.Split('%')[1];
             client.BirthDate = DateTimeUtils.ConvertToDateTime(line.Split('%')[2]);
-            client.PhoneNumber = line.Split('%')[3]; //Change to Phone formatting later
+            client.PhoneNumber = line.Split('%')[3];
             client.Email = line.Split('%')[4];
+            
             clients.Add(client);
         }
         
         return clients;
     }
     
-    public List<Car> ReadCSVCar(string path)
+    public List<Car> ReadCsvCar(string path)
     {
 
         // this code reads the csv file and update cars list.
@@ -75,9 +77,9 @@ public class ServiceCSV :  IServiceCSV
             car.Price = decimal.Parse(lineSplit[3], NumberStyles.AllowDecimalPoint, CultureInfo.InvariantCulture);
             car.Color = lineSplit[4];
             car.IsSold= bool.Parse(lineSplit[5]);
+            
             cars.Add(car);
         }
-        
         return cars;
     }
 

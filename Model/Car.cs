@@ -16,7 +16,7 @@ using AutoRapido.Utils;
 
 public class Car
 {
-    [Key] public Guid CarId { get; set; } = Guid.NewGuid();
+    [Key] public Guid CarId { get; set; } = Guid.NewGuid(); // Generate new ID // TODO Implement generation in database
 
     [Required] public String BrandName { get; set; }
 

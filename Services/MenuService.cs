@@ -1,10 +1,10 @@
 using AutoRapido.Model;
-using System.Collections.Generic;
 
 namespace AutoRapido.Services
 {
     public class MenuService
     {
+        // This service manages the menus and their content.
         public List<MenuOption> GetMainMenu()
         {
             return new List<MenuOption>
