@@ -1,5 +1,8 @@
 using AutoRapido.Data;
 using AutoRapido.Model;
+using AutoRapido.Utils;
+using Microsoft.EntityFrameworkCore;
+using System.Globalization;
 
 namespace AutoRapido.Services
 {
@@ -11,16 +14,11 @@ namespace AutoRapido.Services
         {
             _dbContext = dbContext;
         }
-
-        #region Menu Methods
-
-        
-
-        public void VoirVoitures()
+        public void DisplayCarsInfos()
         {
             Console.WriteLine("\n Liste des voitures disponibles :\n");
 
-            var cars = _dbContext.Cars.ToList(); // Retreving list of cars from database.
+            var cars = _dbContext.Cars.ToList(); // Get from database
             {
                 Console.WriteLine("Aucune voiture enregistrée pour le moment.\n");
             }
@@ -33,22 +31,56 @@ namespace AutoRapido.Services
             Console.WriteLine();
         }
 
-        public void VoirVentes()
+        public void DisplaySalesInfos()
         {
             Console.WriteLine("\nHistorique des ventes :");
         }
 
-        public void AjouterClient()
+        public void AddNewClient()
         {
             Console.WriteLine("\nFormulaire d’ajout client\n");
         }
-
-        public void AjouterVoiture()
+        public void AddNewCar()
         {
-            Console.WriteLine("\nFormulaire d’ajout voiture\n");
+            Console.Write("=== Formulaire d'ajout d'une nouvelle voiture === ");
+            var newCar = new Car();
+
+            Console.Write("Marque de la voiture : ");
+            newCar.BrandName = Console.ReadLine();
+
+            Console.Write("Modèle de la voiture : ");
+            newCar.ModelName = Console.ReadLine();
+
+            Console.Write("Année de mise en circulation : ");
+            string year = Console.ReadLine();
+            newCar.FirstRegistrationYear = DateTimeUtils.ConvertToDateTime(year);
+
+            Console.Write("Prix de la voiture : ");
+            if (decimal.TryParse(Console.ReadLine(), NumberStyles.AllowDecimalPoint, CultureInfo.InvariantCulture, out decimal price))
+                newCar.Price = price;
+            else
+            {
+                Console.WriteLine("Prix invalide.");
+                newCar.Price = 0;   
+            }
+
+            Console.Write("Couleur de la voiture : ");
+            newCar.Color = Console.ReadLine();
+
+            Console.Write("La voiture est-elle vendue ? (true/false) : ");
+            if (bool.TryParse(Console.ReadLine(), out bool isSold))
+                newCar.IsSold = isSold;
+            else
+                newCar.IsSold = false;
+
+            _dbContext.Cars.Add(newCar);
+            _dbContext.SaveChanges();
+
+            Console.WriteLine("\nNouvelle voiture ajoutée avec succès !");
         }
 
-        public void AjouterVente()
+
+        public void AddNewSale()
         {
             Console.WriteLine("Sélectionnez l'ID du client :");
             foreach (var c in _dbContext.Clients)

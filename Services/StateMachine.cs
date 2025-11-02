@@ -70,16 +70,16 @@ namespace AutoRapido.Services
             switch (internalName)
             {
                 // === Menu principal ===
-                case "VoirVoitures":
-                    _actionsService.VoirVoitures();
-                    break;
-                
-                case "VoirVentes":
-                    _actionsService.VoirVentes();
+                case "DisplayCarsInfos":
+                    actionsService.DisplayCarsInfos();
                     break;
 
-                case "MenuAjout":
-                    _currentState = MenuState.AddMenu;
+                case "DisplaySalesInfos":
+                    actionsService.DisplaySalesInfos();
+                    break;
+
+                case "AddMenu":
+                    currentState = MenuState.AddMenu;
                     break;
 
                 case "Exit":
@@ -87,20 +87,20 @@ namespace AutoRapido.Services
                     break;
 
                 // === Menu ajout ===
-                case "AjouterClient":
-                    _actionsService.AjouterClient();
+                case "AddNewClient":
+                    actionsService.AddNewClient();
                     break;
 
-                case "AjouterVoiture":
-                    _actionsService.AjouterVoiture();
+                case "AddNewCar":
+                    actionsService.AddNewCar();
                     break;
 
-                case "AjouterVente":
-                    _actionsService.AjouterVente();
+                case "AddNewSale":
+                    actionsService.AddNewSale();
                     break;
 
-                case "Retour":
-                    _currentState = MenuState.MainMenu;
+                case "Back":
+                    currentState = MenuState.MainMenu;
                     break;
 
                 default:

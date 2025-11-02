@@ -8,6 +8,10 @@ public class DateTimeUtils
     {
         if (DateTime.TryParse(dateString, out DateTime birthdate))
         {
+            if (birthdate.Day == 0 && birthdate.Month == 0)
+            {
+                return ConvertYearToDateTime(birthdate.Year);
+            }
             return birthdate.ToUniversalTime();
         }
 
