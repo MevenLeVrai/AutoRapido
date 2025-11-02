@@ -1,4 +1,3 @@
-using System;
 using AutoRapido.Data;
 using AutoRapido.Model;
 using AutoRapido.Utils;
@@ -34,13 +33,12 @@ namespace AutoRapido.Services
 
         public void DisplaySalesInfos()
         {
-            Console.WriteLine("\n📜 Historique des ventes :");
-            Console.WriteLine("→ (Aucune vente enregistrée pour le moment)\n");
+            Console.WriteLine("\nHistorique des ventes :");
         }
 
         public void AddNewClient()
         {
-            Console.WriteLine("\n👤 Formulaire d’ajout client (simulation)...\n");
+            Console.WriteLine("\nFormulaire d’ajout client\n");
         }
         public void AddNewCar()
         {
@@ -112,5 +110,6 @@ namespace AutoRapido.Services
             }
         }
 
+        #endregion
     }
 }

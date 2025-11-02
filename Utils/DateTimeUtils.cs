@@ -2,7 +2,7 @@ namespace AutoRapido.Utils;
 
 public class DateTimeUtils
 {
-    private static readonly Random random = new Random();
+    private static readonly Random Random = new Random();
 
     public static DateTime ConvertToDateTime(String dateString)
     {
@@ -13,7 +13,6 @@ public class DateTimeUtils
                 return ConvertYearToDateTime(birthdate.Year);
             }
             return birthdate.ToUniversalTime();
-
         }
 
         Console.WriteLine($"BirthDate Invalide");
@@ -22,19 +21,17 @@ public class DateTimeUtils
 
     public static DateTime ConvertYearToDateTime(int yearInt)
     {    
-        int month = random.Next(1, 13);
-        int day = random.Next(1, 28);
+        int month = Random.Next(1, 13); // Generate random month and day to counter the lack of precision in the csv 
+        int day = Random.Next(1, 28);
 
             return new DateTime(yearInt, month, day, 0, 0, 0, DateTimeKind.Utc);
     }
     
-    public static DateTime RandomDateTime(int yearInt = 200000)
+    public static DateTime RandomDateTime()
     {    
-        if (yearInt == 200000) {
-            yearInt = random.Next(1940, 2025);
-        }
-        int month = random.Next(1, 13);
-        int day = random.Next(1, 28);
+        int yearInt = Random.Next(1940, 2025);
+        int month = Random.Next(1, 13);
+        int day = Random.Next(1, 28);
 
         return new DateTime(yearInt, month, day, 0, 0, 0, DateTimeKind.Utc);
     }
