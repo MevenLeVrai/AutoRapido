@@ -4,7 +4,7 @@ using AutoRapido.Data;
 
 namespace AutoRapido.Services
 {
-    public enum MenuState
+    public enum MenuState // TODO create external class 
     {
         MainMenu,
         AddMenu,
@@ -13,33 +13,33 @@ namespace AutoRapido.Services
 
     public class StateMachine 
     {
-        private MenuState currentState;
-        private readonly MenuService menuService;
-        private readonly ActionsService actionsService;
+        private MenuState _currentState;
+        private readonly MenuService _menuService;
+        private readonly ActionsService _actionsService;
 
-        public StateMachine(ActionsService actionsService, MenuService menuService)
+        public StateMachine(ActionsService _actionsService, MenuService _menuService)
         {
-            currentState = MenuState.MainMenu;
-            this.menuService = menuService;
-            this.actionsService = actionsService;
+            _currentState = MenuState.MainMenu;
+            this._menuService = _menuService;
+            this._actionsService = _actionsService;
         }
 
         public void Run()
         {
-            while (currentState != MenuState.Exit)
+            while (_currentState != MenuState.Exit)
             {
-                switch (currentState)
+                switch (_currentState)
                 {
                     case MenuState.MainMenu:
-                        HandleMenu(menuService.GetMainMenu());
+                        HandleMenu(_menuService.GetMainMenu());
                         break;
                     case MenuState.AddMenu:
-                        HandleMenu(menuService.GetAddMenu());
+                        HandleMenu(_menuService.GetAddMenu());
                         break;
                 }
             }
 
-            Console.WriteLine("\n👋 Fin du programme. Merci d’avoir utilisé AutoRapido !");
+            Console.WriteLine("\nFin du programme. Merci d’avoir utilisé AutoRapido !");
         }
 
         private void HandleMenu(List<MenuOption> menuOptions)
@@ -57,54 +57,54 @@ namespace AutoRapido.Services
                 if (selectedOption != null)
                     ProcessChoice(selectedOption.InternalName);
                 else
-                    Console.WriteLine("❌ Choix invalide !");
+                    Console.WriteLine("Choix invalide !");
             }
             else
             {
-                Console.WriteLine("⚠️ Entrée non reconnue !");
+                Console.WriteLine("Entrée non reconnue !");
             }
         }
 
         private void ProcessChoice(string internalName)
         {
             switch (internalName)
-            {/*
+            {
                 // === Menu principal ===
                 case "VoirVoitures":
-                    actionsService.VoirVoitures();
-                    break;*/
-
+                    _actionsService.VoirVoitures();
+                    break;
+                
                 case "VoirVentes":
-                    actionsService.VoirVentes();
+                    _actionsService.VoirVentes();
                     break;
 
                 case "MenuAjout":
-                    currentState = MenuState.AddMenu;
+                    _currentState = MenuState.AddMenu;
                     break;
 
                 case "Exit":
-                    currentState = MenuState.Exit;
+                    _currentState = MenuState.Exit;
                     break;
 
                 // === Menu ajout ===
                 case "AjouterClient":
-                    actionsService.AjouterClient();
+                    _actionsService.AjouterClient();
                     break;
 
                 case "AjouterVoiture":
-                    actionsService.AjouterVoiture();
+                    _actionsService.AjouterVoiture();
                     break;
 
                 case "AjouterVente":
-                    actionsService.AjouterVente();
+                    _actionsService.AjouterVente();
                     break;
 
                 case "Retour":
-                    currentState = MenuState.MainMenu;
+                    _currentState = MenuState.MainMenu;
                     break;
 
                 default:
-                    Console.WriteLine("❌ Action non reconnue !");
+                    Console.WriteLine("Action non reconnue !");
                     break;
             }
         }

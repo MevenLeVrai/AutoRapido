@@ -7,7 +7,6 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.DependencyInjection;
-using Npgsql;
 
 var configuration = new ConfigurationBuilder()
     .SetBasePath(Directory.GetCurrentDirectory())
@@ -20,7 +19,7 @@ var configuration = new ConfigurationBuilder()
 var host = Host.CreateDefaultBuilder(args)
     .ConfigureServices(services =>
     {
-        // Enregistrer le DbContext EF
+        // Registering DbContext EF
         services.AddDbContext<ConcessionDbContext>(options =>
             options.UseNpgsql(configuration.GetConnectionString("DefaultConnection")));
         
@@ -40,10 +39,8 @@ dbContext.Database.Migrate();
 
 #region Lecture des CSV et relation concession 
 
-#endregion
-
-var service = scope.ServiceProvider.GetRequiredService<IServiceCSV>(); // Création de l'instance
-Concession concession = service.ReadAllCSV(
+var service = scope.ServiceProvider.GetRequiredService<IServiceCSV>(); //Instance creation.
+Concession concession = service.ReadAllCsv(
 configuration.GetSection("CSVPath")["ClientCSV"], 
 configuration.GetSection("CSVPath")["CarCSV"]);
 concession.Name = "AutoRapido";
@@ -53,8 +50,9 @@ if (!dbContext.Concession.Any(c => c.Name == "AutoRapido"))
     dbContext.Concession.Add(concession);
     dbContext.SaveChanges();
 }
+#endregion
 
-#region State machine
+#region Run State machine
 
 stateMachine.Run();
 

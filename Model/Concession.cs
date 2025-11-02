@@ -11,7 +11,7 @@ using System.ComponentModel.DataAnnotations;
 public class Concession
 {
     [Key]
-    public Guid ConcessionId { get; set; } = Guid.NewGuid();
+    public Guid ConcessionId { get; set; } = Guid.NewGuid(); // Generate new ID // TODO Implement generation in database
 
     [Required]
     public string Name { get; set; }

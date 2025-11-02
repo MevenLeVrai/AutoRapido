@@ -1,7 +1,5 @@
-using System;
 using AutoRapido.Data;
 using AutoRapido.Model;
-using Microsoft.EntityFrameworkCore;
 
 namespace AutoRapido.Services
 {
@@ -13,11 +11,16 @@ namespace AutoRapido.Services
         {
             _dbContext = dbContext;
         }
+
+        #region Menu Methods
+
+        
+
         public void VoirVoitures()
         {
             Console.WriteLine("\n Liste des voitures disponibles :\n");
 
-            var cars = _dbContext.Cars.ToList(); // Récupération depuis la base
+            var cars = _dbContext.Cars.ToList(); // Retreving list of cars from database.
             {
                 Console.WriteLine("Aucune voiture enregistrée pour le moment.\n");
             }
@@ -32,18 +35,17 @@ namespace AutoRapido.Services
 
         public void VoirVentes()
         {
-            Console.WriteLine("\n📜 Historique des ventes :");
-            Console.WriteLine("→ (Aucune vente enregistrée pour le moment)\n");
+            Console.WriteLine("\nHistorique des ventes :");
         }
 
         public void AjouterClient()
         {
-            Console.WriteLine("\n👤 Formulaire d’ajout client (simulation)...\n");
+            Console.WriteLine("\nFormulaire d’ajout client\n");
         }
 
         public void AjouterVoiture()
         {
-            Console.WriteLine("\n🚘 Formulaire d’ajout voiture (simulation)...\n");
+            Console.WriteLine("\nFormulaire d’ajout voiture\n");
         }
 
         public void AjouterVente()
@@ -76,5 +78,6 @@ namespace AutoRapido.Services
             }
         }
 
+        #endregion
     }
 }
