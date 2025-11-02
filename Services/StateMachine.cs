@@ -68,17 +68,17 @@ namespace AutoRapido.Services
         private void ProcessChoice(string internalName)
         {
             switch (internalName)
-            {/*
+            {
                 // === Menu principal ===
-                case "VoirVoitures":
-                    actionsService.VoirVoitures();
-                    break;*/
-
-                case "VoirVentes":
-                    actionsService.VoirVentes();
+                case "DisplayCarsInfos":
+                    actionsService.DisplayCarsInfos();
                     break;
 
-                case "MenuAjout":
+                case "DisplaySalesInfos":
+                    actionsService.DisplaySalesInfos();
+                    break;
+
+                case "AddMenu":
                     currentState = MenuState.AddMenu;
                     break;
 
@@ -87,19 +87,19 @@ namespace AutoRapido.Services
                     break;
 
                 // === Menu ajout ===
-                case "AjouterClient":
-                    actionsService.AjouterClient();
+                case "AddNewClient":
+                    actionsService.AddNewClient();
                     break;
 
-                case "AjouterVoiture":
-                    actionsService.AjouterVoiture();
+                case "AddNewCar":
+                    actionsService.AddNewCar();
                     break;
 
-                case "AjouterVente":
-                    actionsService.AjouterVente();
+                case "AddNewSale":
+                    actionsService.AddNewSale();
                     break;
 
-                case "Retour":
+                case "Back":
                     currentState = MenuState.MainMenu;
                     break;
 
