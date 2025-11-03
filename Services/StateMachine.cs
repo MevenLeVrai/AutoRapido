@@ -1,6 +1,4 @@
-using System;
 using AutoRapido.Model;
-using AutoRapido.Data;
 
 namespace AutoRapido.Services
 {
@@ -17,11 +15,11 @@ namespace AutoRapido.Services
         private readonly MenuService _menuService;
         private readonly ActionsService _actionsService;
 
-        public StateMachine(ActionsService _actionsService, MenuService _menuService)
+        public StateMachine(ActionsService actionsService, MenuService menuService)
         {
             _currentState = MenuState.MainMenu;
-            this._menuService = _menuService;
-            this._actionsService = _actionsService;
+            this._menuService = menuService;
+            this._actionsService = actionsService;
         }
 
         public void Run()
@@ -71,15 +69,15 @@ namespace AutoRapido.Services
             {
                 // === Menu principal ===
                 case "DisplayCarsInfos":
-                    actionsService.DisplayCarsInfos();
+                    _actionsService.DisplayCarsInfos();
                     break;
 
                 case "DisplaySalesInfos":
-                    actionsService.DisplaySalesInfos();
+                    _actionsService.DisplaySalesInfos();
                     break;
 
                 case "AddMenu":
-                    currentState = MenuState.AddMenu;
+                    _currentState = MenuState.AddMenu;
                     break;
 
                 case "Exit":
@@ -88,19 +86,19 @@ namespace AutoRapido.Services
 
                 // === Menu ajout ===
                 case "AddNewClient":
-                    actionsService.AddNewClient();
+                    _actionsService.AddNewClient();
                     break;
 
                 case "AddNewCar":
-                    actionsService.AddNewCar();
+                    _actionsService.AddNewCar();
                     break;
 
                 case "AddNewSale":
-                    actionsService.AddNewSale();
+                    _actionsService.AddNewSale();
                     break;
 
                 case "Back":
-                    currentState = MenuState.MainMenu;
+                    _currentState = MenuState.MainMenu;
                     break;
 
                 default:
