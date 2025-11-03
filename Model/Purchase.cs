@@ -8,11 +8,15 @@ public class Purchase
 
     [Required]
     public Guid CarId { get; set; } 
-
+    
+    public Car Car { get; set; }
     [Required]
     public Guid ClientId { get; set; }  
     
+    public Client Client { get; set; }
     [Required]
     public DateTime PurchaseDate { get; set; }
+    
+    public decimal Price { get; set; }
 }
 
