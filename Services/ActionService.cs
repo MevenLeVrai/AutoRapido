@@ -41,7 +41,20 @@ namespace AutoRapido.Services
 
         public void AddNewClient()
         {
-            Console.WriteLine("\nFormulaire d’ajout client\n");
+            Console.WriteLine("\n=== Formulaire d’ajout client===\n");
+            var newClient = new Client();
+            
+            Console.Write("Prénom du client: ");
+            newClient.FirstName = Console.ReadLine();
+            Console.Write("Nom du client: ");
+            newClient.LastName = Console.ReadLine();
+            Console.Write("Email du client: ");
+            newClient.Email = Console.ReadLine();
+            Console.Write("Numero de téléphone du client: ");
+            newClient.PhoneNumber = Console.ReadLine();
+            
+            _dbContext.Clients.Add(newClient);
+            _dbContext.SaveChanges();
         }
         public void AddNewCar()
         {
