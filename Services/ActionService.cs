@@ -37,6 +37,25 @@ namespace AutoRapido.Services
         public void DisplaySalesInfos()
         {
             Console.WriteLine("\nHistorique des ventes :");
+            var sales = _dbContext.Purchases
+                .Include(p => p.Car)
+                .Include(p => p.Client)
+                .ToList();
+            if (sales.Any())
+            {
+                foreach (var sale in sales)
+                {
+                    Console.WriteLine($"{sale.PurchaseId} | " +
+                                      $"{sale.Car?.BrandName ?? "Inconnue"} | " +
+                                      $"{sale.Client?.FirstName + sale.Client?.LastName ?? "Inconnu"} | " +
+                                      $"{sale.PurchaseDate:d} | " +
+                                      $"{sale.Price:C}");
+                }
+            }
+            else
+            {
+                Console.WriteLine("Aucune vente enregistrée.");
+            }
         }
 
         public void AddNewClient()
