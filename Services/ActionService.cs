@@ -14,6 +14,9 @@ namespace AutoRapido.Services
         {
             _dbContext = dbContext;
         }
+
+        #region ActionsMethods
+        
         public void DisplayCarsInfos()
         {
             Console.WriteLine("\n Liste des voitures disponibles :\n");
