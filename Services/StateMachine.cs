@@ -17,11 +17,11 @@ namespace AutoRapido.Services
         private readonly MenuService _menuService;
         private readonly ActionsService _actionsService;
 
-        public StateMachine(ActionsService _actionsService, MenuService _menuService)
+        public StateMachine(ActionsService actionsService, MenuService menuService)
         {
             _currentState = MenuState.MainMenu;
-            this._menuService = _menuService;
-            this._actionsService = _actionsService;
+            _menuService = menuService;
+            _actionsService = actionsService;
         }
 
         public void Run()
